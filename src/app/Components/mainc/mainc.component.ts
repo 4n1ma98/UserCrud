@@ -13,6 +13,7 @@ export class MaincComponent {
   showAlert: boolean = false;
 
   emit(): void {
+    console.log('holacas');
     this.tablec.GetUsers();
   }
 

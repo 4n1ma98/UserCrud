@@ -22,10 +22,15 @@
               class="btn btn-warning btn-sm"
               data-bs-toggle="modal"
               data-bs-target="#exampleModal"
+              (click)="captureData(item)"
             >
               <i class="bi bi-pencil-fill"></i>
             </button>
-            <button class="btn btn-danger btn-sm">
+            <button
+              type="button"
+              class="btn btn-danger btn-sm"
+              (click)="onDelete(item.id)"
+            >
               <i class="bi bi-trash3"></i>
             </button>
           </td>
@@ -57,19 +62,58 @@
           aria-label="Close"
         ></button>
       </div>
-      <div class="modal-body">
-        <app-textboxc labelText="Nombre(s)"></app-textboxc>
-        <app-textboxc labelText="Apellidos"></app-textboxc>
-        <app-textboxc labelText="Cédula"></app-textboxc>
-        <app-textboxc labelText="Correo Electrónico"></app-textboxc>
-        <app-checkboxc labelText="Activo"></app-checkboxc>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Close
-        </button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+      <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+        <div class="modal-body">
+          <app-textboxc
+            labelText="Nombre(s)"
+            [control]="firstNameControl"
+            [error]="
+              updateForm.get('firstName')!.invalid &&
+              updateForm.get('firstName')!.touched
+            "
+          ></app-textboxc>
+          <app-textboxc
+            labelText="Apellidos"
+            [control]="lastNameControl"
+            [error]="
+              updateForm.get('lastName')!.invalid &&
+              updateForm.get('lastName')!.touched
+            "
+          ></app-textboxc>
+          <app-textboxc
+            labelText="Cédula"
+            [control]="idControl"
+            [error]="
+              updateForm.get('id')!.invalid && updateForm.get('id')!.touched
+            "
+            type="number"
+          ></app-textboxc>
+          <app-textboxc
+            labelText="Correo Electrónico"
+            [control]="emailControl"
+            [error]="
+              updateForm.get('email')!.invalid &&
+              updateForm.get('email')!.touched
+            "
+          ></app-textboxc>
+          <app-checkboxc
+            labelText="Activo"
+            [control]="activeControl"
+          ></app-checkboxc>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">
+            Save changes
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

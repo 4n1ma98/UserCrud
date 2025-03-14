@@ -53,7 +53,6 @@ export class FormcComponent {
 
   onSubmit(): void {
     if (this.registrationForm.valid) {
-      console.log(this.registrationForm.value);
       const user = {
         firstName: this.registrationForm.value.firstName,
         lastName: this.registrationForm.value.lastName,
@@ -64,11 +63,11 @@ export class FormcComponent {
 
       this.api.CreateUser(user).subscribe({
         next: (response: any) => {
-          console.log('User created:', response);
+          console.log('User created: ', response);
           this.userCreated.emit();
         },
         error: (error: any) => {
-          this.error.emit('Hubo un error en la creación del usuario: ' + error);
+          this.error.emit('Hubo un error en el consumo del servicio: ' + error);
         },
         complete: () => {
           console.log('Request completed');
@@ -77,7 +76,7 @@ export class FormcComponent {
       });
     } else {
       this.markAllAsTouched(this.registrationForm);
-      this.error.emit('No puede hacer ningún campo invalido.');
+      this.error.emit('No puede haber ningún campo invalido.');
     }
   }
 

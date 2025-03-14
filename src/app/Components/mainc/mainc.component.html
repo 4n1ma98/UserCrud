@@ -1,9 +1,14 @@
 <main class="main position-relative">
   <app-formc (userCreated)="emit()" (error)="error($event)"></app-formc>
-  <app-tablec #tablec></app-tablec>
+  <app-tablec
+    #tablec
+    (userDeleted)="emit()"
+    (userUpdated)="emit()"
+    (error)="error($event)"
+  ></app-tablec>
   <app-alertc
     *ngIf="showAlert"
-    class="position-absolute start-50 top-0"
+    class="position-absolute top-0"
     [alertText]="alertMessage"
   ></app-alertc>
 </main>
