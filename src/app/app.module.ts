@@ -16,11 +16,14 @@ import { CheckboxcComponent } from './Components/checkboxc/checkboxc.component';
 import { TablecComponent } from './Components/tablec/tablec.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 import {
   provideHttpClient,
   withInterceptorsFromDi,
 } from '@angular/common/http';
+import { LogincComponent } from './Components/loginc/loginc.component';
+import { ErrorcComponent } from './Components/errorc/errorc.component';
 
 @NgModule({
   declarations: [
@@ -35,8 +38,10 @@ import {
     AlertcComponent,
     CheckboxcComponent,
     TablecComponent,
+    LogincComponent,
+    ErrorcComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule],
+  imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule, FormsModule],
   providers: [provideHttpClient(withInterceptorsFromDi())],
   bootstrap: [AppComponent],
 })

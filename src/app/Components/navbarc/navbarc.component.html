@@ -4,6 +4,14 @@
   style="max-height: 6vh; min-height: 6vh"
 >
   <div class="container-fluid">
+    <button
+      type="button"
+      class="btn btn-danger position-absolute ms-2 start-0"
+      (click)="cerrarSesion()"
+    >
+      Cerrar Sesión
+    </button>
     <span class="navbar-brand mb-0 h1 mx-auto">UserCrud</span>
+    <span class="navbar-brand position-absolute end-0">{{ fullName }}</span>
   </div>
 </nav>

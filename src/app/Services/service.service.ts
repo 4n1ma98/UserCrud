@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { catchError, Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -10,6 +10,8 @@ export class ServiceService {
   private readUser = 'https://localhost:7075/api/User/ReadUser';
   private updateUser = 'https://localhost:7075/api/User/UpdateUser';
   private deleteUser = 'https://localhost:7075/api/User/DeleteUser';
+
+  private login = 'https://localhost:7075/api/User/Login';
 
   constructor(private http: HttpClient) {}
 
@@ -33,5 +35,30 @@ export class ServiceService {
     return this.http.delete<any>(`${this.deleteUser}/${userId}`, {
       headers: headers,
     });
+  }
+
+  Login(credentials: any): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Accept: '*/*',
+    });
+    return this.http
+      .post<any>(this.login, credentials, { headers: headers })
+      .pipe(
+        tap((response) => {
+          if (response && response.active == true) {
+            sessionStorage.setItem('id', response.id);
+            sessionStorage.setItem('firstName', response.firstName);
+            sessionStorage.setItem('lastName', response.lastName);
+            sessionStorage.setItem('email', response.email);
+          } else {
+            throw new Error('Login fallido: No se encontró el usuario');
+          }
+        }),
+        catchError((error) => {
+          console.error('Error en el login:', error);
+          throw error;
+        })
+      );
   }
 }
