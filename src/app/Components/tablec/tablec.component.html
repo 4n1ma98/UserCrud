@@ -1,0 +1,75 @@
+<div class="card my-3" style="width: 900px">
+  <div class="card-body">
+    <table class="table table-hover text-center m-0">
+      <thead>
+        <tr>
+          <th>Nombre(s)</th>
+          <th>Apellidos</th>
+          <th>Cédula</th>
+          <th>Correo Electrónico</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of usersList">
+          <td>{{ item.firstName }}</td>
+          <td>{{ item.lastName }}</td>
+          <td>{{ item.id }}</td>
+          <td>{{ item.email }}</td>
+          <td>
+            <button
+              type="button"
+              class="btn btn-warning btn-sm"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+            >
+              <i class="bi bi-pencil-fill"></i>
+            </button>
+            <button class="btn btn-danger btn-sm">
+              <i class="bi bi-trash3"></i>
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="usersList.length == 0">
+          <td colspan="6">No hay datos</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <app-textboxc labelText="Nombre(s)"></app-textboxc>
+        <app-textboxc labelText="Apellidos"></app-textboxc>
+        <app-textboxc labelText="Cédula"></app-textboxc>
+        <app-textboxc labelText="Correo Electrónico"></app-textboxc>
+        <app-checkboxc labelText="Activo"></app-checkboxc>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

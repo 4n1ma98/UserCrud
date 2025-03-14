@@ -1,0 +1,50 @@
+<div class="card my-3" style="width: 500px">
+  <div class="card-header text-center"><b>Formulario de Registro</b></div>
+  <div class="card-body p-4">
+    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+      <app-textboxc
+        labelText="Nombre(s)"
+        [control]="firstNameControl"
+        [error]="
+          registrationForm.get('firstName')!.invalid &&
+          registrationForm.get('firstName')!.touched
+        "
+      ></app-textboxc>
+      <app-textboxc
+        labelText="Apellidos"
+        [control]="lastNameControl"
+        [error]="
+          registrationForm.get('lastName')!.invalid &&
+          registrationForm.get('lastName')!.touched
+        "
+      ></app-textboxc>
+      <app-textboxc
+        labelText="Cédula"
+        [control]="idControl"
+        [error]="
+          registrationForm.get('id')!.invalid &&
+          registrationForm.get('id')!.touched
+        "
+        type="number"
+      ></app-textboxc>
+      <app-textboxc
+        labelText="Correo Electrónico"
+        [control]="emailControl"
+        [error]="
+          registrationForm.get('email')!.invalid &&
+          registrationForm.get('email')!.touched
+        "
+      ></app-textboxc>
+      <app-textboxc
+        labelText="Clave"
+        [control]="passControl"
+        [error]="
+          registrationForm.get('pass')!.invalid &&
+          registrationForm.get('pass')!.touched
+        "
+        type="password"
+      ></app-textboxc>
+      <app-buttonc value="Registrar"></app-buttonc>
+    </form>
+  </div>
+</div>

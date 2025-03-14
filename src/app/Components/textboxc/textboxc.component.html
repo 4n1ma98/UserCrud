@@ -1,0 +1,9 @@
+<div class="mb-4">
+  <label class="form-label">{{ labelText }}</label>
+  <input
+    class="form-control"
+    type="{{ type }}"
+    [formControl]="control"
+    [class.is-invalid]="error"
+  />
+</div>
