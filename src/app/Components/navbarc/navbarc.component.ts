@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-navbarc',
@@ -16,7 +17,19 @@ export class NavbarcComponent {
   constructor(private router: Router) {}
 
   cerrarSesion(): void {
-    sessionStorage.clear();
-    this.router.navigate(['/login']);
+    Swal.fire({
+      title: '¿Deseas continuar?',
+      text: 'Si se confirma la acción se cerrará la sesión',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, cerrar sesión',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        sessionStorage.clear();
+        this.router.navigate(['/login']);
+      }
+    });
   }
 }

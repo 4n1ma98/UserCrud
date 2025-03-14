@@ -1,7 +1,7 @@
 <div class="container d-flex align-items-center justify-content-center vh-100">
   <div class="card col-4">
     <div class="card-header text-center p-3"><h5>Login</h5></div>
-    <div class="card-body">
+    <div class="card-body" (keyup.enter)="login()">
       <div class="mb-3">
         <label class="form-label" for="email">Correo Electrónico</label>
         <input

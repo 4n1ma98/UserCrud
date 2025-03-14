@@ -46,11 +46,17 @@ export class ServiceService {
       .post<any>(this.login, credentials, { headers: headers })
       .pipe(
         tap((response) => {
-          if (response && response.active == true) {
-            sessionStorage.setItem('id', response.id);
-            sessionStorage.setItem('firstName', response.firstName);
-            sessionStorage.setItem('lastName', response.lastName);
-            sessionStorage.setItem('email', response.email);
+          if (response && response.additionalData.active == true) {
+            sessionStorage.setItem('id', response.additionalData.id);
+            sessionStorage.setItem(
+              'firstName',
+              response.additionalData.firstName
+            );
+            sessionStorage.setItem(
+              'lastName',
+              response.additionalData.lastName
+            );
+            sessionStorage.setItem('email', response.additionalData.email);
           } else {
             throw new Error('Login fallido: No se encontró el usuario');
           }

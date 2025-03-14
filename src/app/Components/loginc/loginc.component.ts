@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ServiceService } from '../../Services/service.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-loginc',
@@ -22,11 +23,15 @@ export class LogincComponent {
 
     this.api.Login(credentials).subscribe({
       next: (response: any) => {
-        console.log('User created: ', response);
         this.router.navigate(['/']);
       },
       error: (error: any) => {
         console.error('Error: ', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Credenciales incorrectas!',
+        });
       },
       complete: () => {
         console.log('Request completed');

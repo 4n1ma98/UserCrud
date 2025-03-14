@@ -6,6 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ServiceService } from '../../Services/service.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-formc',
@@ -73,6 +74,12 @@ export class FormcComponent {
           console.log('Request completed');
           this.registrationForm.reset({ casado: false });
         },
+      });
+
+      Swal.fire({
+        title: 'Registro exitoso!',
+        text: 'El usuario se registró correctamente!',
+        icon: 'success',
       });
     } else {
       this.markAllAsTouched(this.registrationForm);

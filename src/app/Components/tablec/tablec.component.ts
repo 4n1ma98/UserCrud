@@ -6,6 +6,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-tablec',
@@ -69,8 +70,8 @@ export class TablecComponent implements OnInit {
 
   GetUsers(): void {
     this.api.ReadUser().subscribe({
-      next: (users: any[]) => {
-        this.usersList = users;
+      next: (users: any) => {
+        this.usersList = users.additionalData;
       },
       error: (error: any) => {
         console.error('Hubo un error en el consumo del servicio:', error);
@@ -82,22 +83,31 @@ export class TablecComponent implements OnInit {
   }
 
   onDelete(userId: string): void {
-    if (userId) {
-      this.api.DeleteUser(userId).subscribe({
-        next: (response: any) => {
-          console.log('User deleted: ', response);
-          this.userDeleted.emit();
-        },
-        error: (error: any) => {
-          this.error.emit('Hubo un error en el consumo del servicio: ' + error);
-        },
-        complete: () => {
-          console.log('Request completed');
-        },
-      });
-    } else {
-      this.error.emit('Debe proporcionar un ID válido para eliminar.');
-    }
+    Swal.fire({
+      title: '¿Deseas continuar?',
+      text: 'Si se confirma la acción se eliminará el registro',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.api.DeleteUser(userId).subscribe({
+          next: (response: any) => {
+            this.userDeleted.emit();
+          },
+          error: (error: any) => {
+            this.error.emit(
+              'Hubo un error en el consumo del servicio: ' + error
+            );
+          },
+          complete: () => {
+            console.log('Request completed');
+          },
+        });
+      }
+    });
   }
 
   onSubmit(): void {
@@ -110,7 +120,12 @@ export class TablecComponent implements OnInit {
 
       this.api.UpdateUser(user).subscribe({
         next: (response: any) => {
-          console.log('User updated: ', response);
+          Swal.fire({
+            title: 'Actualización exitosa!',
+            text: 'El usuario se actualizó correctamente!',
+            icon: 'success',
+          });
+
           this.userUpdated.emit();
         },
         error: (error: any) => {
